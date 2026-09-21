@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+*.log
+.venv/
+venv/
+build/
+dist/
+*.spec.bak
+_edge_tts_logs/
+_edge_tts_profiles/
+*.mp3
+*.part
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

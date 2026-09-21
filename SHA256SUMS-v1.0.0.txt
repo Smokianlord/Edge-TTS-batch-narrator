@@ -1,0 +1,2 @@
+9053589d0cf9e3da04bfed207eb425604688e941be14bad08801bcc571f25c9c  EdgeTTSBatchNarrator-v1.0.0-Setup.exe
+93d4d34a4439b0a06d673fcef5c932edbf6817575740919e3a7231f01d1c0de6  EdgeTTSBatchNarrator-v1.0.0-source.zip
