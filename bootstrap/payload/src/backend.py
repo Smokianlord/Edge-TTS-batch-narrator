@@ -13,7 +13,7 @@ from typing import Callable, Iterable
 
 from docx import Document
 
-APP_TITLE = "Edge TTS Batch Narrator"
+APP_TITLE = "Edge TTS batch narrator"
 APP_VERSION = "1.0.0"
 APP_PUBLISHER = "Mystic Story Recaps"
 SITE_URL = "https://edge-tts.com/"

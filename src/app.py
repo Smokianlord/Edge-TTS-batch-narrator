@@ -79,9 +79,9 @@ class MetricCard(tk.Frame):
 class App(tk.Tk):
     def __init__(self) -> None:
         super().__init__()
-        self.title(f"{APP_TITLE} v{APP_VERSION}")
-        self.geometry("1240x820")
-        self.minsize(1040, 690)
+        self.title(APP_TITLE)
+        self.geometry("1280x860")
+        self.minsize(1040, 700)
         self.configure(bg=BG)
         self.protocol("WM_DELETE_WINDOW", self._on_close)
         self._enable_high_dpi()
@@ -217,20 +217,19 @@ class App(tk.Tk):
 
     def _build_ui(self) -> None:
         # Header
-        header = tk.Frame(self, bg=SURFACE, height=78, highlightbackground=BORDER, highlightthickness=1)
+        header = tk.Frame(self, bg=SURFACE, highlightbackground=BORDER, highlightthickness=1)
         header.pack(fill="x")
-        header.pack_propagate(False)
 
         brand = tk.Frame(header, bg=SURFACE)
-        brand.pack(side="left", fill="y", padx=22)
+        brand.pack(side="left", padx=22, pady=12)
         icon_box = tk.Canvas(brand, width=42, height=42, bg=SURFACE, highlightthickness=0)
-        icon_box.pack(side="left", pady=18)
+        icon_box.pack(side="left")
         icon_box.create_oval(2, 2, 40, 40, fill=ACCENT, outline="")
         icon_box.create_line(13, 23, 13, 19, 17, 14, 21, 27, 25, 11, 29, 23,
                              fill="white", width=3, smooth=True)
 
         title_wrap = tk.Frame(brand, bg=SURFACE)
-        title_wrap.pack(side="left", padx=(12, 0), pady=14)
+        title_wrap.pack(side="left", padx=(12, 0))
         tk.Label(title_wrap, text=APP_TITLE, bg=SURFACE, fg=TEXT,
                  font=("Segoe UI Semibold", 18)).pack(anchor="w")
         tk.Label(title_wrap, text=f"Long-form chapter narration • Andrew (US) • v{APP_VERSION}",
@@ -238,7 +237,7 @@ class App(tk.Tk):
 
         right_header = tk.Frame(header, bg=SURFACE)
         right_header.pack(side="right", padx=22)
-        ModernButton(right_header, text="About", kind="ghost", command=self._show_about).pack(side="right", pady=19)
+        ModernButton(right_header, text="About", kind="ghost", command=self._show_about).pack(side="right", pady=12)
 
         # Body shell
         body = tk.Frame(self, bg=BG)
@@ -273,8 +272,37 @@ class App(tk.Tk):
                      wraplength=310, justify="left").pack(anchor="w", pady=(2, 0))
 
     def _build_sidebar(self) -> None:
-        inner = tk.Frame(self.sidebar, bg=SURFACE)
-        inner.pack(fill="both", expand=True, padx=18, pady=18)
+        # Scrollable settings panel: prevents clipping on Windows display scaling
+        # (125%, 150%, 175%) and on smaller laptop screens.
+        shell = tk.Frame(self.sidebar, bg=SURFACE)
+        shell.pack(fill="both", expand=True)
+
+        canvas = tk.Canvas(shell, bg=SURFACE, highlightthickness=0, bd=0)
+        scrollbar = ttk.Scrollbar(shell, orient="vertical", command=canvas.yview, style="Vertical.TScrollbar")
+        canvas.configure(yscrollcommand=scrollbar.set)
+        scrollbar.pack(side="right", fill="y")
+        canvas.pack(side="left", fill="both", expand=True)
+
+        inner = tk.Frame(canvas, bg=SURFACE)
+        inner_window = canvas.create_window((0, 0), window=inner, anchor="nw")
+
+        def _sync_scrollregion(_event=None):
+            canvas.configure(scrollregion=canvas.bbox("all"))
+
+        def _sync_width(event):
+            canvas.itemconfigure(inner_window, width=event.width)
+
+        inner.bind("<Configure>", _sync_scrollregion)
+        canvas.bind("<Configure>", _sync_width)
+
+        def _wheel(event):
+            if event.delta:
+                canvas.yview_scroll(int(-1 * (event.delta / 120)), "units")
+
+        canvas.bind("<Enter>", lambda _e: canvas.bind_all("<MouseWheel>", _wheel))
+        canvas.bind("<Leave>", lambda _e: canvas.unbind_all("<MouseWheel>"))
+
+        inner.configure(padx=18, pady=18)
 
         self._section_title(inner, "Project", "Choose the chapter document and where the MP3 files should be saved.")
         tk.Label(inner, text="INPUT DOCX", bg=SURFACE, fg=MUTED, font=("Segoe UI", 8, "bold")).pack(anchor="w", pady=(15, 5))
@@ -333,8 +361,8 @@ class App(tk.Tk):
         tk.Label(help_box, text="Recommended", bg="#10223a", fg=INFO,
                  font=("Segoe UI", 8, "bold")).pack(anchor="w", padx=11, pady=(8, 2))
         self.mode_help = tk.Label(help_box, text="Direct mode uses the Andrew voice without website controls and supports up to five parallel chapters.",
-                                  bg="#10223a", fg="#b7c8dc", font=("Segoe UI", 8), wraplength=285, justify="left")
-        self.mode_help.pack(anchor="w", padx=11, pady=(0, 9))
+                                  bg="#10223a", fg="#b7c8dc", font=("Segoe UI", 8), wraplength=300, justify="left")
+        self.mode_help.pack(fill="x", anchor="w", padx=11, pady=(0, 12))
 
     def _build_main(self) -> None:
         top = tk.Frame(self.main, bg=BG)

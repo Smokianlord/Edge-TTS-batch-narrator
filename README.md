@@ -1,7 +1,7 @@
-# Edge TTS Batch Narrator
+# Edge TTS batch narrator
 
 <p align="center">
-  <img src="assets/app.png" width="128" alt="Edge TTS Batch Narrator icon">
+  <img src="assets/app.png" width="128" alt="Edge TTS batch narrator icon">
 </p>
 
 <p align="center">
@@ -16,11 +16,11 @@
   <img alt="Python" src="https://img.shields.io/badge/python-3.12%2B-3776AB">
 </p>
 
-![Edge TTS Batch Narrator interface](assets/screenshot.png)
+![Edge TTS batch narrator interface](assets/screenshot.png)
 
 ## What it does
 
-**Edge TTS Batch Narrator** reads a `.docx` file, detects numbered chapters, and generates a separate MP3 for each chapter. It is designed for long-form narration workflows where creating dozens of chapters manually would take too much time.
+**Edge TTS batch narrator** reads a `.docx` file, detects numbered chapters, and generates a separate MP3 for each chapter. It is designed for long-form narration workflows where creating dozens of chapters manually would take too much time.
 
 The default voice is:
 
@@ -43,11 +43,12 @@ The default voice is:
 
 ## Download
 
-For normal users, download the latest Windows executable from **Releases**:
+For normal users, download one of the Windows executables from **Releases**:
 
-`EdgeTTSBatchNarrator-v1.0.0-win64.exe`
+- `EdgeTTSBatchNarrator-v1.0.0-win64.exe` — fully bundled standalone build.
+- `EdgeTTSBatchNarrator-v1.0.0-Setup.exe` — lightweight first-run setup build.
 
-No command prompt is needed for the standalone release build.
+Both executables carry the **Edge TTS batch narrator** product title, the application icon, and version **1.0.0** in Windows file properties.
 
 ## Input format
 
@@ -68,6 +69,14 @@ Chapter 1. The complete chapter narration continues in the same paragraph...
 ```
 
 Each detected chapter becomes one MP3 file.
+
+## DOCX template
+
+A ready-to-edit template is included at:
+
+`examples/Edge TTS batch narrator - DOCX template.docx`
+
+It demonstrates the recommended chapter structure and TTS-friendly formatting. Replace the sample chapter text with your own narration, then select the document in the app.
 
 ## Recommended settings
 
@@ -122,10 +131,11 @@ The repository includes `.github/workflows/build-windows.yml`.
 
 Creating and pushing the tag `v1.0.0` automatically:
 
-1. Builds the Windows executable on `windows-latest`.
-2. Generates a SHA-256 checksum.
-3. Uploads the executable as an Actions artifact.
-4. Creates the GitHub Release and attaches the `.exe` and checksum.
+1. Builds the fully bundled Windows executable on `windows-latest`.
+2. Builds the lightweight Setup executable and embeds its icon/version resources.
+3. Generates SHA-256 checksums.
+4. Uploads both executables as an Actions artifact.
+5. Creates the GitHub Release and attaches both `.exe` files and the checksum file.
 
 Example:
 

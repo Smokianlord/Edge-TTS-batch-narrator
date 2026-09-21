@@ -1,6 +1,6 @@
-# Edge TTS Batch Narrator v1.0.0
+# Edge TTS batch narrator v1.0.0
 
-The first public release of **Edge TTS Batch Narrator**, a Windows desktop utility for turning chapter-based Word documents into batch-generated MP3 narration.
+The first public release of **Edge TTS batch narrator**, a Windows desktop utility for turning chapter-based Word documents into batch-generated MP3 narration.
 
 ## Highlights
 
@@ -35,3 +35,12 @@ Download `EdgeTTSBatchNarrator-v1.0.0-win64.exe` from the release assets and run
 ## Notes
 
 Internet access is required for speech generation. Browser UI mode additionally requires Microsoft Edge to be installed. This project is not affiliated with Microsoft or edge-tts.com.
+
+### Windows packaging
+
+- Embedded the application icon into both Windows executables.
+- Added Windows file metadata for product name **Edge TTS batch narrator** and version **1.0.0**.
+- The application window title now exactly matches the product title.
+- Improved DPI-safe layout so header/subtitle text no longer clips.
+- Added a scrollable settings panel so the Recommended guidance remains accessible at higher Windows display scaling.
+- Added `examples/Edge TTS batch narrator - DOCX template.docx`.

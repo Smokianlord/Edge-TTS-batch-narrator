@@ -17,7 +17,7 @@ import (
 )
 
 const (
-	appName        = "Edge TTS Batch Narrator"
+	appName        = "Edge TTS batch narrator"
 	appVersion     = "1.0.0"
 	pythonVersion  = "3.12.10"
 	pythonURL      = "https://www.python.org/ftp/python/3.12.10/python-3.12.10-amd64.exe"

@@ -1,2 +1,3 @@
-9053589d0cf9e3da04bfed207eb425604688e941be14bad08801bcc571f25c9c  EdgeTTSBatchNarrator-v1.0.0-Setup.exe
-93d4d34a4439b0a06d673fcef5c932edbf6817575740919e3a7231f01d1c0de6  EdgeTTSBatchNarrator-v1.0.0-source.zip
+d55bbb4b7190ee556366e24ccc4e48779977706d533462b7acd4a927609588fd  EdgeTTSBatchNarrator-v1.0.0-Setup.exe
+2e9256473904fdbbbd42237058dd89a16adb3dcf2dade8c5d524c1b3799b485f  EdgeTTSBatchNarrator-v1.0.0-source.zip
+953a8d958e9726a400f353c8cc9eed0a88cc23b8b02addfc332f5a95cf6b5165  Edge TTS batch narrator - DOCX template.docx

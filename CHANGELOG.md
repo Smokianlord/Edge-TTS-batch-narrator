@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to **Edge TTS Batch Narrator** are documented here.
+All notable changes to **Edge TTS batch narrator** are documented here.
 
 ## [1.0.0] - 2026-09-21
 

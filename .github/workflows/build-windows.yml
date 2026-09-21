@@ -23,6 +23,11 @@ jobs:
           python-version: '3.12'
           cache: 'pip'
 
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: 'stable'
+
       - name: Install dependencies
         shell: pwsh
         run: |
@@ -32,33 +37,58 @@ jobs:
       - name: Validate source
         shell: pwsh
         run: |
-          python -m py_compile src/app.py src/backend.py
+          python -m py_compile src/app.py src/backend.py build/patch_pe_resources.py
 
-      - name: Build EXE
+      - name: Build standalone EXE
         shell: pwsh
         run: |
           python -m PyInstaller EdgeTTSBatchNarrator.spec --noconfirm --clean
 
+      - name: Build setup EXE
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force dist | Out-Null
+          Push-Location bootstrap
+          go build -trimpath -ldflags="-s -w" -o ../dist/EdgeTTSBatchNarrator-v1.0.0-Setup-raw.exe main_windows.go
+          Pop-Location
+          python build/patch_pe_resources.py `
+            dist/EdgeTTSBatchNarrator-v1.0.0-Setup-raw.exe `
+            assets/app.ico `
+            dist/EdgeTTSBatchNarrator-v1.0.0-Setup.exe `
+            --title "Edge TTS batch narrator" `
+            --version "1.0.0" `
+            --company "Mystic Story Recaps"
+          Remove-Item dist/EdgeTTSBatchNarrator-v1.0.0-Setup-raw.exe
+
       - name: SHA256
         shell: pwsh
         run: |
-          $exe = 'dist/EdgeTTSBatchNarrator-v1.0.0-win64.exe'
-          (Get-FileHash $exe -Algorithm SHA256).Hash + '  EdgeTTSBatchNarrator-v1.0.0-win64.exe' | Out-File -Encoding ascii dist/SHA256SUMS.txt
+          $files = @(
+            'dist/EdgeTTSBatchNarrator-v1.0.0-win64.exe',
+            'dist/EdgeTTSBatchNarrator-v1.0.0-Setup.exe'
+          )
+          $lines = foreach ($file in $files) {
+            $hash = (Get-FileHash $file -Algorithm SHA256).Hash.ToLower()
+            "$hash  $([System.IO.Path]::GetFileName($file))"
+          }
+          $lines | Out-File -Encoding ascii dist/SHA256SUMS.txt
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: EdgeTTSBatchNarrator-v1.0.0-win64
+          name: EdgeTTSBatchNarrator-v1.0.0-Windows
           path: |
             dist/EdgeTTSBatchNarrator-v1.0.0-win64.exe
+            dist/EdgeTTSBatchNarrator-v1.0.0-Setup.exe
             dist/SHA256SUMS.txt
 
       - name: Publish GitHub Release
         if: startsWith(github.ref, 'refs/tags/v')
         uses: softprops/action-gh-release@v2
         with:
-          name: Edge TTS Batch Narrator v1.0.0
+          name: Edge TTS batch narrator v1.0.0
           body_path: RELEASE_NOTES.md
           files: |
             dist/EdgeTTSBatchNarrator-v1.0.0-win64.exe
+            dist/EdgeTTSBatchNarrator-v1.0.0-Setup.exe
             dist/SHA256SUMS.txt
