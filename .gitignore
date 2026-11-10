@@ -14,3 +14,4 @@ _edge_tts_profiles/
 Thumbs.db
 .vscode/
 .idea/
+.build-venv/
