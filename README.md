@@ -71,7 +71,3 @@ python -m PyInstaller EdgeTTSBatchNarrator.spec --noconfirm --clean
 ```
 
 Pushing a version tag (for example `v1.0.0`) builds both exes on GitHub and attaches them to a release.
-
-## License
-
-MIT, see [LICENSE](LICENSE).
