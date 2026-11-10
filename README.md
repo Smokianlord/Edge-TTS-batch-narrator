@@ -146,11 +146,7 @@ git push origin v1.0.0
 
 ## Privacy
 
-Narration documents are read locally by the application. Text selected for speech generation is sent to the applicable online TTS service as required to synthesize audio. Do not publish private documents, browser profiles, or diagnostic logs in public bug reports.
-
-## Disclaimer
-
-This is an independent project and is not affiliated with, endorsed by, or sponsored by Microsoft or edge-tts.com. Service availability, voices, and external website behavior can change over time.
+Narration documents are read locally by the application. Text selected for speech generation is sent to the applicable online TTS service as required to synthesize audio.
 
 ## License
 

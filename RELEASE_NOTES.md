@@ -34,7 +34,7 @@ Download `EdgeTTSBatchNarrator-v1.0.0-win64.exe` from the release assets and run
 
 ## Notes
 
-Internet access is required for speech generation. Browser UI mode additionally requires Microsoft Edge to be installed. This project is not affiliated with Microsoft or edge-tts.com.
+Internet access is required for speech generation. Browser UI mode additionally requires Microsoft Edge to be installed.
 
 ### Windows packaging
 
