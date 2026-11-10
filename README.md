@@ -1,6 +1,8 @@
 # Edge TTS batch narrator
 
-<img src="assets/app.png" width="128" alt="Edge TTS batch narrator icon">
+<p align="center">
+  <img src="assets/app.png" width="128" alt="Edge TTS batch narrator icon">
+</p>
 
 A Windows app that turns a Word document split into chapters into one MP3 per chapter, using Microsoft Edge's text-to-speech voices. Made for long narrations where doing each chapter by hand takes too long.
 
